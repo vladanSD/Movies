@@ -41,6 +41,8 @@ dependencies {
     compile "com.google.code.gson:gson:$rootProject.gsonVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitVersion"
+
 
 
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {

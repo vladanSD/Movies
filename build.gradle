@@ -30,7 +30,7 @@ task clean(type: Delete) {
 ext{
 
     supportLibraryVersion = '26.1.0'
-    roomDatabase = '1.0.0-alpha3'
+    roomDatabase = '1.0.0-alpha9-1'
 
     constraintLayoutVersion = '1.0.2'
 
@@ -49,4 +49,5 @@ ext{
     //Test dependencies
     junitVersion = '4.12'
     espressoVersion = '3.0.1'
+
 }
