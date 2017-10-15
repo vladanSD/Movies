@@ -5,8 +5,8 @@ import android.arch.persistence.room.RoomDatabase;
 
 import com.vladan.mymovies.data.local.db.dao.GenreDao;
 import com.vladan.mymovies.data.local.db.dao.MovieDao;
-import com.vladan.mymovies.data.local.model.Genre;
-import com.vladan.mymovies.data.local.model.Movie;
+import com.vladan.mymovies.data.model.Genre;
+import com.vladan.mymovies.data.model.Movie;
 
 /**
  * Created by Vladan on 10/14/2017.

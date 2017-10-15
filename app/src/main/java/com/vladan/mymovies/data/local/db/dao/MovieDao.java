@@ -5,8 +5,8 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.vladan.mymovies.data.local.model.Genre;
-import com.vladan.mymovies.data.local.model.Movie;
+import com.vladan.mymovies.data.model.Genre;
+import com.vladan.mymovies.data.model.Movie;
 
 import java.util.List;
 
@@ -20,8 +20,8 @@ public interface MovieDao {
     @Query("SELECT * FROM Movie")
     List<Movie> getAllMovies();
 
-    @Query("SELECT * FROM Movie WHERE genres IN(:genre)")
-    List<Movie> getMoviesByGenre(Genre genre);
+    @Query("SELECT * FROM Movie WHERE genres =:genre")
+    List<Movie> getMoviesByGenre(int genre);
 
     @Query("SELECT * FROM Movie Where id = :id")
     Movie getMovie(int id);

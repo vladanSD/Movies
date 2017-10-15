@@ -1,7 +1,7 @@
 package com.vladan.mymovies.data.local.db;
 
-import com.vladan.mymovies.data.local.model.Genre;
-import com.vladan.mymovies.data.local.model.Movie;
+import com.vladan.mymovies.data.model.Genre;
+import com.vladan.mymovies.data.model.Movie;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ public interface DatabaseHelper {
 
     Observable<List<Movie>> getAllMovies();
 
-    Observable<List<Movie>> getMoviesByGenre(Genre genre);
+    Observable<List<Movie>> getMoviesByGenre(int genre);
 
-    Observable<Boolean> updateMovie(int id);
+    Observable<Boolean> updateMovie(Movie movie);
 
     Observable<List<Genre>> getAllGenres();
 

@@ -1,4 +1,7 @@
-package com.vladan.mymovies.data.local.model;
+package com.vladan.mymovies.data.model;
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -6,23 +9,27 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Vladan on 10/14/2017.
  */
-
+@Entity
 public class Genre {
 
-    @SerializedName("id")
+    @PrimaryKey
+    @SerializedName("genre_id")
     @Expose
-    private Integer id;
+    private int genreId;
 
     @SerializedName("name")
     @Expose
     private String name;
 
-    public Integer getId() {
-        return id;
+    public Genre() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public int getGenreId() {
+        return genreId;
+    }
+
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
     }
 
     public String getName() {

@@ -45,6 +45,9 @@ ext{
     gsonVersion = '2.8.2'
     retrofitVersion = '2.3.0'
 
+    //http client
+    okhttp3Version = '3.9.0'
+
 
     //Test dependencies
     junitVersion = '4.12'

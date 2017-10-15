@@ -1,4 +1,4 @@
-package com.vladan.mymovies.data.local.model;
+package com.vladan.mymovies.data.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
@@ -6,7 +6,6 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 
 /**
  * Created by Vladan on 10/14/2017.
@@ -25,7 +24,7 @@ public class Movie {
 
     @SerializedName("genres")
     @Expose
-    private List<Genre> genres = null;
+    private int genres;
 
     @SerializedName("homepage")
     @Expose
@@ -85,26 +84,6 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(int adult, String backdropPath, List<Genre> genres, String homepage, int id, String imdbId, String originalTitle, String overview, String posterPath, String releaseDate, int runtime, String status, String tagline, String title, Double voteAverage, int voteCount, int favourite) {
-        this.adult = adult;
-        this.backdropPath = backdropPath;
-        this.genres = genres;
-        this.homepage = homepage;
-        this.id = id;
-        this.imdbId = imdbId;
-        this.originalTitle = originalTitle;
-        this.overview = overview;
-        this.posterPath = posterPath;
-        this.releaseDate = releaseDate;
-        this.runtime = runtime;
-        this.status = status;
-        this.tagline = tagline;
-        this.title = title;
-        this.voteAverage = voteAverage;
-        this.voteCount = voteCount;
-        this.favourite = favourite;
-    }
-
     public int getAdult() {
         return adult;
     }
@@ -121,11 +100,11 @@ public class Movie {
         this.backdropPath = backdropPath;
     }
 
-    public List<Genre> getGenres() {
+    public int getGenres() {
         return genres;
     }
 
-    public void setGenres(List<Genre> genres) {
+    public void setGenres(int genres) {
         this.genres = genres;
     }
 
