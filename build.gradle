@@ -41,6 +41,9 @@ ext{
     rxjava2Version = '2.1.5'
     rxandroidVersion = '2.0.1'
 
+    //picasso
+    picassoVersion = '2.5.2'
+
     //API
     gsonVersion = '2.8.2'
     retrofitVersion = '2.3.0'

@@ -3,11 +3,8 @@ package com.vladan.mymovies.ui.main;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 
 import com.vladan.mymovies.R;
 
@@ -45,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(2)));
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new MainFragment());
-        fragments.add(new MainFragment());
-        fragments.add(new MainFragment());
+        fragments.add(new Main1Fragment());
+        fragments.add(new Main2Fragment());
+        fragments.add(new Main3Fragment());
 
         mViewPager.setOffscreenPageLimit(2);
 
