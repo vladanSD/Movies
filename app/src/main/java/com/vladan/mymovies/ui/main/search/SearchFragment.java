@@ -1,4 +1,4 @@
-package com.vladan.mymovies.ui.main;
+package com.vladan.mymovies.ui.main.search;
 
 
 import android.os.Bundle;
@@ -14,11 +14,11 @@ import com.vladan.mymovies.R;
  * Created by Vladan on 10/15/2017.
  */
 
-public class Main1Fragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        return inflater.inflate(R.layout.search_fragment, container, false);
     }
 }

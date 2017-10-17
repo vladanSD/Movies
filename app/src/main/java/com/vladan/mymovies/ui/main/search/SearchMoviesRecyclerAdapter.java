@@ -1,4 +1,4 @@
-package com.vladan.mymovies.ui.main;
+package com.vladan.mymovies.ui.main.search;
 
 import android.content.Context;
 import com.vladan.mymovies.data.model.Movie;
@@ -18,12 +18,12 @@ import java.util.List;
  * Created by Vladan on 10/16/2017.
  */
 
-public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
+public class SearchMoviesRecyclerAdapter extends RecyclerView.Adapter<SearchMoviesRecyclerAdapter.ViewHolder> {
 
     private List<Movie> listOfMovies;
     private Context context;
 
-    public MoviesAdapter(List<Movie> listOfMovies, Context context) {
+    public SearchMoviesRecyclerAdapter(List<Movie> listOfMovies, Context context) {
         this.listOfMovies = listOfMovies;
         this.context = context;
     }
@@ -53,7 +53,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         TextView movieGenre;
 
 
-        public ViewHolder(View itemView) {
+        private ViewHolder(View itemView) {
             super(itemView);
 
             movieImg = itemView.findViewById(R.id.iv_recycler_item);

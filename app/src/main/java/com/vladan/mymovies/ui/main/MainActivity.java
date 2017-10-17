@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.vladan.mymovies.R;
+import com.vladan.mymovies.ui.main.about.AboutFragment;
+import com.vladan.mymovies.ui.main.list.ListFragment;
+import com.vladan.mymovies.ui.main.search.SearchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.addTab(mTabLayout.newTab().setText(titles.get(2)));
 
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new Main1Fragment());
-        fragments.add(new Main2Fragment());
-        fragments.add(new Main3Fragment());
+        fragments.add(new SearchFragment());
+        fragments.add(new ListFragment());
+        fragments.add(new AboutFragment());
 
         mViewPager.setOffscreenPageLimit(2);
 

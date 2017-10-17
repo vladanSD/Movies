@@ -1,4 +1,4 @@
-package com.vladan.mymovies.ui.main;
+package com.vladan.mymovies.ui.main.about;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,11 +13,11 @@ import com.vladan.mymovies.R;
  * Created by Vladan on 10/16/2017.
  */
 
-public class Main3Fragment extends Fragment {
+public class AboutFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment3_main, container, false);
+        return inflater.inflate(R.layout.about_fragment, container, false);
     }
 }
