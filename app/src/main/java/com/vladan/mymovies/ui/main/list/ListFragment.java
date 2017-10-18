@@ -21,7 +21,7 @@ import java.util.List;
  * Created by Vladan on 10/16/2017.
  */
 
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment implements MoviesRecyclerAdapter.OnItemClicked {
 
     View mRootView;
 
@@ -48,7 +48,7 @@ public class ListFragment extends Fragment {
     private void initRecycler(){
         mRecyclerView = mRootView.findViewById(R.id.rv_picked_list);
         mLayoutManger = new LinearLayoutManager(getContext());
-        mAdapter = new MoviesRecyclerAdapter(randomTestData(), getContext());
+        mAdapter = new MoviesRecyclerAdapter(randomTestData(), getContext(), this);
         mRecyclerView.setLayoutManager(mLayoutManger);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -90,4 +90,9 @@ public class ListFragment extends Fragment {
         return  mList;
     }
 
+
+    @Override
+    public void onItemClicked(int position) {
+        
+    }
 }

@@ -1,9 +1,14 @@
 package com.vladan.mymovies.ui;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import com.vladan.mymovies.data.model.Movie;
+
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,6 +16,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.vladan.mymovies.R;
+import com.vladan.mymovies.ui.movie.MovieActivity;
 
 import java.util.List;
 
@@ -22,10 +28,16 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
 
     private List<Movie> listOfMovies;
     private Context context;
+    private OnItemClicked mListener;
 
-    public MoviesRecyclerAdapter(List<Movie> listOfMovies, Context context) {
+    public MoviesRecyclerAdapter(List<Movie> listOfMovies, Context context, OnItemClicked listener) {
         this.listOfMovies = listOfMovies;
         this.context = context;
+        this.mListener = listener;
+    }
+
+    public interface OnItemClicked{
+        void onItemClicked(int position);
     }
 
     @Override
@@ -35,11 +47,14 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final Movie movie = listOfMovies.get(position);
 
         //binding data
         holder.bind(movie.getPosterPath(), movie.getTitle(), movie.getGenres());
+
+
+
     }
 
     @Override
@@ -47,18 +62,20 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
         return listOfMovies.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView movieImg;
         TextView movieName;
         TextView movieGenre;
+        View mView;
 
 
-        private ViewHolder(View itemView) {
+        private ViewHolder(View itemView)  {
             super(itemView);
-
+            mView = itemView;
             movieImg = itemView.findViewById(R.id.iv_recycler_item);
             movieName = itemView.findViewById(R.id.tv_recycler_item_name);
             movieGenre = itemView.findViewById(R.id.tv_recycler_item_genre);
+            itemView.setOnClickListener(this);
         }
 
         void bind(String img, String name, int genre){
@@ -66,5 +83,14 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
             movieName.setText(name);
             movieGenre.setText(String.valueOf(genre));
         }
+
+
+        @Override
+        public void onClick(View view) {
+            int index = getAdapterPosition();
+            mListener.onItemClicked(index);
+        }
     }
+
+
 }
