@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta7'
+        classpath 'com.android.tools.build:gradle:3.0.0-rc2'
         
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -31,6 +31,7 @@ ext{
 
     supportLibraryVersion = '26.1.0'
     roomDatabase = '1.0.0-alpha9-1'
+    lifecycle = '1.0.0-alpha9-1'
 
     constraintLayoutVersion = '1.0.2'
 

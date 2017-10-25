@@ -40,6 +40,11 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
         void onItemClicked(int position);
     }
 
+    public void updateList(List<Movie> list){
+        listOfMovies = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movies_adapter_item, parent, false);

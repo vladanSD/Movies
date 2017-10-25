@@ -21,5 +21,9 @@ public interface DatabaseHelper {
 
     Observable<List<Genre>> getAllGenres();
 
+    Observable<Boolean> clearAll(List<Movie> list);
+
+    Observable<Boolean> insertAll(List<Movie> list);
+
 
 }

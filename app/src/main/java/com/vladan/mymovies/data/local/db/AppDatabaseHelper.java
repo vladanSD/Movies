@@ -23,47 +23,44 @@ public class AppDatabaseHelper implements DatabaseHelper {
 
     @Override
     public Observable<List<Movie>> getAllMovies() {
-        return Observable.fromCallable(new Callable<List<Movie>>() {
-            @Override
-            public List<Movie> call() throws Exception {
-                return appDatabase.movieDao().getAllMovies();
-            }
-        });
+        return Observable.fromCallable(() -> appDatabase.movieDao().getAllMovies());
     }
 
     @Override
     public Observable<List<Movie>> getMoviesByGenre(final int genre) {
 
-        return Observable.fromCallable(new Callable<List<Movie>>() {
-            @Override
-            public List<Movie> call() throws Exception {
-                return appDatabase.movieDao().getMoviesByGenre(genre);
-            }
-        });
+        return Observable.fromCallable(() -> appDatabase.movieDao().getMoviesByGenre(genre));
     }
 
     @Override
     public Observable<Boolean> updateMovie(final Movie movie) {
-        return Observable.fromCallable(new Callable<Boolean>() {
-            @Override
-            public Boolean call() throws Exception {
-                 appDatabase.movieDao().updateMovie(movie);
-                 return true;
-            }
+        return Observable.fromCallable(() -> {
+             appDatabase.movieDao().updateMovie(movie);
+             return true;
         });
     }
 
     @Override
     public Observable<List<Genre>> getAllGenres() {
 
-        return Observable.fromCallable(new Callable<List<Genre>>() {
-            @Override
-            public List<Genre> call() throws Exception {
-                return appDatabase.genreDao().getAllGenres();
-            }
+        return Observable.fromCallable(() -> appDatabase.genreDao().getAllGenres());
+    }
+
+    @Override
+    public Observable<Boolean> clearAll(List<Movie> list) {
+        return Observable.fromCallable(() -> {
+            appDatabase.movieDao().clearAll(list);
+            return true;
         });
     }
 
+    @Override
+    public Observable<Boolean> insertAll(List<Movie> list) {
+        return Observable.fromCallable(() -> {
+            appDatabase.movieDao().insertAll(list);
+            return true;
+        });
+    }
 
 
 }
