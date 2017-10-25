@@ -2,6 +2,8 @@ package com.vladan.mymovies.data;
 
 import android.content.Context;
 
+import com.vladan.mymovies.data.local.db.AppDatabase;
+import com.vladan.mymovies.data.local.db.dao.MovieDao;
 import com.vladan.mymovies.data.model.Movie;
 
 import com.vladan.mymovies.data.local.db.AppDatabaseHelper;
@@ -19,32 +21,30 @@ import io.reactivex.Observable;
 
 public class AppDataManager {
 
-    private AppDataManager instance;
-
-    private final Context context;
-    private final AppDatabaseHelper database;
+    private final MovieDao movieDao;
     private final ApiService service;
 
-    public AppDataManager(Context context, AppDatabaseHelper database, ApiService service) {
-        this.context = context;
-        this.database = database;
+    public AppDataManager(MovieDao dao, ApiService service) {
+        this.movieDao = dao;
         this.service = service;
     }
 
 
-        public Observable<List<Movie>> popularMovies() {
-            return service.popularMovies()
-                    .map(MovieResponse::getMovies)
-                    .doOnNext(movies -> {
-                        Observable<List<Movie>> currentMovies = database.getAllMovies();
-                        database.clearAll(((List<Movie>) currentMovies));
-                        database.insertAll(movies);
-                    })
-                    .onErrorResumeNext(throwable -> {
-                        return database.getAllMovies();
-
-                    });
-        }
+    public Observable<List<Movie>> popularMovies() {
+        return service.popularMovies()
+                .map(MovieResponse::getMovies)
+                .doOnNext(movies -> {
+                    List<Movie> currentMovies = movieDao.getAllMovies();
+                    movieDao.clearAll(currentMovies);
+                    movieDao.insertAll(movies);
+                })
+                .onErrorResumeNext(throwable -> {
+                    List<Movie> movies = movieDao.getAllMovies();
+                    return Observable.just(movies);
+                });
     }
+
+
+}
 
 

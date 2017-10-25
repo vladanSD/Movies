@@ -4,11 +4,14 @@ package com.vladan.mymovies.ui.main.search;
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ import com.vladan.mymovies.R;
 import com.vladan.mymovies.data.AppDataManager;
 import com.vladan.mymovies.data.local.db.AppDatabase;
 import com.vladan.mymovies.data.local.db.AppDatabaseHelper;
+import com.vladan.mymovies.data.local.db.dao.MovieDao;
 import com.vladan.mymovies.data.model.Movie;
 import com.vladan.mymovies.data.model.Response;
 import com.vladan.mymovies.data.remote.ApiFactory;
@@ -39,7 +43,6 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManger;
     MoviesRecyclerAdapter mAdapter;
-
     AppDataManager appDataManager;
 
 
@@ -54,7 +57,6 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initRecycler();
-
 
         initViewModel();
 
@@ -77,17 +79,14 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
 
 
     private void initViewModel(){
-        AppDatabaseHelper helper = new AppDatabaseHelper(AppDatabase.getInstance(getActivity()));
-        appDataManager = new AppDataManager(getActivity(),helper, ApiFactory.getService());
-
-        factory = new ViewModelFactory(appDataManager);
+        MovieDao dao = AppDatabase.getInstance(getActivity()).movieDao();
+        factory = new ViewModelFactory(ApiFactory.getService(), dao);
         viewModel = ViewModelProviders.of(this, factory).get(SearchViewModel.class);
 
-        viewModel.getMoviesList().observe(SearchFragment.this, new Observer<Response<List<Movie>>>() {
-            @Override
-            public void onChanged(@Nullable Response<List<Movie>> listResponse) {
-                List<Movie> list = new ArrayList<>();
-                list =  listResponse.getData();
+        viewModel.getMoviesList().observe(this, listResponse -> {
+            List<Movie> list = new ArrayList<>();
+            list =  listResponse.getData();
+            if(!list.isEmpty()){
                 mAdapter.updateList(list);
             }
         });

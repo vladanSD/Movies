@@ -22,8 +22,8 @@ public interface MovieDao {
     @Query("SELECT * FROM Movie")
     List<Movie> getAllMovies();
 
-    @Query("SELECT * FROM Movie WHERE genres =:genre")
-    List<Movie> getMoviesByGenre(int genre);
+//    @Query("SELECT * FROM Movie WHERE genres =:genre")
+//    List<Movie> getMoviesByGenre(int genre);
 
     @Query("SELECT * FROM Movie Where id = :id")
     Movie getMovie(int id);
@@ -37,4 +37,6 @@ public interface MovieDao {
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Movie> list);
 
+    @Query("DELETE FROM Movie")
+    public void nukeTable();
 }

@@ -56,7 +56,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
         final Movie movie = listOfMovies.get(position);
 
         //binding data
-        holder.bind(movie.getPosterPath(), movie.getTitle(), movie.getGenres());
+        holder.bind(movie.getPosterPath(), movie.getTitle());
 
 
 
@@ -83,10 +83,9 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
             itemView.setOnClickListener(this);
         }
 
-        void bind(String img, String name, int genre){
+        void bind(String img, String name){
             Picasso.with(context).load(img).into(movieImg);
             movieName.setText(name);
-            movieGenre.setText(String.valueOf(genre));
         }
 
 

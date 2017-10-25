@@ -13,7 +13,7 @@ import com.vladan.mymovies.data.model.Movie;
 /**
  * Created by Vladan on 10/14/2017.
  */
-@Database(entities = {Movie.class, Genre.class}, version = 2)
+@Database(entities = {Movie.class, Genre.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;

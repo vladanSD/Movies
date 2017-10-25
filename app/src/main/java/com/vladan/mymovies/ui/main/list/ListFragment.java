@@ -75,11 +75,11 @@ public class ListFragment extends Fragment implements MoviesRecyclerAdapter.OnIt
         m3.setTitle("Naruto");
         m4.setTitle("Handmaiden");
 
-        m.setGenres(1);
-        m1.setGenres(1);
-        m2.setGenres(1);
-        m3.setGenres(1);
-        m4.setGenres(1);
+//        m.setGenres(1);
+//        m1.setGenres(1);
+//        m2.setGenres(1);
+//        m3.setGenres(1);
+//        m4.setGenres(1);
 
         mList.add(m);
         mList.add(m1);

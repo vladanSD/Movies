@@ -29,7 +29,8 @@ public class AppDatabaseHelper implements DatabaseHelper {
     @Override
     public Observable<List<Movie>> getMoviesByGenre(final int genre) {
 
-        return Observable.fromCallable(() -> appDatabase.movieDao().getMoviesByGenre(genre));
+//        return Observable.fromCallable(() -> appDatabase.movieDao().getMoviesByGenre(genre));
+        return null;
     }
 
     @Override

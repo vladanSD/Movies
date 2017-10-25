@@ -1,119 +1,52 @@
 package com.vladan.mymovies.data.model;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-/**
- * Created by Vladan on 10/14/2017.
- */
-
 @Entity
-public class Movie {
-
-    @SerializedName("adult")
-    @Expose
-    private int adult;
-
-    @SerializedName("backdrop_path")
-    @Expose
-    private String backdropPath;
-
-    @SerializedName("genres")
-    @Expose
-    private int genres;
-
-    @SerializedName("homepage")
-    @Expose
-    private String homepage;
+public class Movie implements Parcelable {
 
     @PrimaryKey
     @SerializedName("id")
-    @Expose
     private int id;
 
-    @SerializedName("imdb_id")
-    @Expose
-    private String imdbId;
-
-    @SerializedName("original_title")
-    @Expose
-    private String originalTitle;
-
-    @SerializedName("overview")
-    @Expose
-    private String overview;
-
+    @ColumnInfo(name = "poster_path")
     @SerializedName("poster_path")
-    @Expose
     private String posterPath;
 
-    @SerializedName("release_date")
-    @Expose
-    private String releaseDate;
+    @ColumnInfo(name = "overview")
+    @SerializedName("overview")
+    private String overview;
 
-    @SerializedName("runtime")
-    @Expose
-    private int runtime;
-
-    @SerializedName("status")
-    @Expose
-    private String status;
-
-    @SerializedName("tagline")
-    @Expose
-    private String tagline;
-
-    @SerializedName("title")
-    @Expose
+    @ColumnInfo(name = "original_title")
+    @SerializedName("original_title")
     private String title;
 
+    @ColumnInfo(name = "release_date")
+    @SerializedName("release_date")
+    private String releasedDate;
+
+    @ColumnInfo(name = "vote_average")
     @SerializedName("vote_average")
-    @Expose
-    private Double voteAverage;
-
-    @SerializedName("vote_count")
-    @Expose
-    private int voteCount;
-
-    private int favourite;
+    private double voteAverage;
 
     public Movie() {
     }
 
-    public int getAdult() {
-        return adult;
-    }
-
-    public void setAdult(int adult) {
-        this.adult = adult;
-    }
-
-    public String getBackdropPath() {
-        return backdropPath;
-    }
-
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
-    }
-
-    public int getGenres() {
-        return genres;
-    }
-
-    public void setGenres(int genres) {
-        this.genres = genres;
-    }
-
-    public String getHomepage() {
-        return homepage;
-    }
-
-    public void setHomepage(String homepage) {
-        this.homepage = homepage;
+    public Movie(Parcel in) {
+        id = in.readInt();
+        posterPath = in.readString();
+        overview = in.readString();
+        title = in.readString();
+        releasedDate = in.readString();
+        voteAverage = in.readDouble();
     }
 
     public int getId() {
@@ -124,99 +57,90 @@ public class Movie {
         this.id = id;
     }
 
-    public String getImdbId() {
-        return imdbId;
-    }
-
-    public void setImdbId(String imdbId) {
-        this.imdbId = imdbId;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
+    @NonNull
     public String getPosterPath() {
         return posterPath;
     }
 
-    public void setPosterPath(String posterPath) {
+    public void setPosterPath(@NonNull String posterPath) {
         this.posterPath = posterPath;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    @NonNull
+    public String getOverview() {
+        return overview;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setOverview(@NonNull String overview) {
+        this.overview = overview;
     }
 
-    public int getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(int runtime) {
-        this.runtime = runtime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getTagline() {
-        return tagline;
-    }
-
-    public void setTagline(String tagline) {
-        this.tagline = tagline;
-    }
-
+    @NonNull
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@NonNull String title) {
         this.title = title;
     }
 
-    public Double getVoteAverage() {
+    @NonNull
+    public String getReleasedDate() {
+        return releasedDate;
+    }
+
+    public void setReleasedDate(@NonNull String releasedDate) {
+        this.releasedDate = releasedDate;
+    }
+
+    public double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(Double voteAverage) {
+    public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
-    public int getVoteCount() {
-        return voteCount;
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", posterPath='" + posterPath + '\'' +
+                ", overview='" + overview + '\'' +
+                ", title='" + title + '\'' +
+                ", releasedDate='" + releasedDate + '\'' +
+                ", voteAverage=" + voteAverage +
+                '}';
     }
 
-    public void setVoteCount(int voteCount) {
-        this.voteCount = voteCount;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public int getFavourite() {
-        return favourite;
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(posterPath);
+        parcel.writeString(overview);
+        parcel.writeString(title);
+        parcel.writeString(releasedDate);
+        parcel.writeDouble(voteAverage);
     }
 
-    public void setFavourite(int favourite) {
-        this.favourite = favourite;
-    }
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+
+        @NonNull
+        @Override
+        public Movie createFromParcel(Parcel parcel) {
+            return new Movie(parcel);
+        }
+
+        @NonNull
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+
+    };
 }
