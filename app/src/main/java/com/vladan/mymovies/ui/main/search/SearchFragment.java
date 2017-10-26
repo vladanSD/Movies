@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.vladan.mymovies.R;
@@ -48,6 +49,7 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
     MoviesRecyclerAdapter mAdapter;
     EditText mEditText;
     Spinner mSortSpinner;
+    ImageButton mImageButton;
 
 
     @Nullable
@@ -56,6 +58,7 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
         mRootView = inflater.inflate(R.layout.search_fragment, container, false);
         mEditText = mRootView.findViewById(R.id.et_search);
         mSortSpinner = mRootView.findViewById(R.id.spinner_sort);
+        mImageButton = mRootView.findViewById(R.id.ib_search);
 
         return mRootView;
     }
@@ -103,12 +106,17 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
         factory = new ViewModelFactory(ApiFactory.getService(), dao);
         viewModel = ViewModelProviders.of(this, factory).get(SearchViewModel.class);
 
-//        viewModel.getMoviesList().observe(this, listResponse -> {
-//            List<Movie> list =  listResponse.getData();
-//            if(!list.isEmpty()){
-//                mAdapter.updateList(list);
-//            }
-//        });
+        mImageButton.setOnClickListener(view -> {
+            String search = mEditText.getText().toString();
+            if(!search.equals("")){
+                viewModel.getSearchedMovies(search).observe(this, listResponse -> {
+                    List<Movie> list = listResponse.getData();
+                    if (!list.isEmpty()) {
+                        mAdapter.updateList(list);
+                    }
+                });
+            }
+        });
 
     }
 

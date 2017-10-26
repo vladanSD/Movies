@@ -11,7 +11,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "API_ENDPOINT", '"http://api.themoviedb.org/3/movie/"'
+        buildConfigField "String", "API_ENDPOINT", '"http://api.themoviedb.org/3/"'
         buildConfigField "String", "API_KEY", '"1d963d7e34014ee2bafffa360b3a5398"'
         buildConfigField "String", "IMAGES_BASE_URL", '"https://image.tmdb.org/t/p/w500"'
 
@@ -71,6 +71,7 @@ dependencies {
 
     //http client
     compile "com.squareup.okhttp3:okhttp:$rootProject.okhttp3Version"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp3Version"
 
 
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {

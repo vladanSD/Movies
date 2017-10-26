@@ -26,8 +26,10 @@ public class SearchViewModel extends ViewModel {
 
     private MutableLiveData<Response<List<Movie>>> popularMoviesLiveData;
     private MutableLiveData<Response<List<Movie>>> topRatedMoviesLiveData;
-    private MutableLiveData<Response<List<Movie>>> LatestMoviesLiveData;
     private MutableLiveData<Response<List<Movie>>> upcomingMoviesLiveData;
+
+
+    private MutableLiveData<Response<List<Movie>>> searchedMovies;
 
 
     public SearchViewModel(AppDataManager appDataManager) {
@@ -95,6 +97,25 @@ public class SearchViewModel extends ViewModel {
                     );
         }
         return upcomingMoviesLiveData;
+    }
+
+
+    LiveData<Response<List<Movie>>> getSearchedMovies(String search) {
+            searchedMovies = new MutableLiveData<>();
+            appDataManager.searchMovies(search)
+                    .map(movies -> {
+                        Collections.sort(movies, (first, second) -> second.getId() - first.getId());
+                        return movies;
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(disposable -> loadingLiveData.setValue(true))
+                    .doAfterTerminate(() -> loadingLiveData.setValue(false))
+                    .subscribe(
+                            movies -> searchedMovies.setValue(Response.success(movies)),
+                            throwable -> searchedMovies.setValue(Response.error(throwable))
+                    );
+        return searchedMovies;
     }
 
 

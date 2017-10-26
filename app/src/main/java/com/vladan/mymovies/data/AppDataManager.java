@@ -5,7 +5,7 @@ import com.vladan.mymovies.data.local.db.dao.MovieDao;
 import com.vladan.mymovies.data.model.Movie;
 
 import com.vladan.mymovies.data.model.MovieResponse;
-import com.vladan.mymovies.data.remote.ApiService;
+import com.vladan.mymovies.data.remote.MovieService;
 
 import java.util.List;
 
@@ -19,9 +19,9 @@ import io.reactivex.Observable;
 public class AppDataManager {
 
     private final MovieDao movieDao;
-    private final ApiService service;
+    private final MovieService service;
 
-    public AppDataManager(MovieDao dao, ApiService service) {
+    public AppDataManager(MovieDao dao, MovieService service) {
         this.movieDao = dao;
         this.service = service;
     }
@@ -69,6 +69,21 @@ public class AppDataManager {
                     return Observable.just(movies);
                 });
     }
+
+    public Observable<List<Movie>> searchMovies(String search) {
+        return service.searchMovie(search)
+                .map(MovieResponse::getMovies)
+                .doOnNext(movies -> {
+                    List<Movie> currentMovies = movieDao.getAllMovies();
+                    movieDao.clearAll(currentMovies);
+                    movieDao.insertAll(movies);
+                })
+                .onErrorResumeNext(throwable -> {
+                    List<Movie> movies = movieDao.getAllMovies();
+                    return Observable.just(movies);
+                });
+    }
+
 
 
 }

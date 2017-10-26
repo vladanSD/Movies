@@ -3,6 +3,7 @@ package com.vladan.mymovies.data.remote;
 import com.vladan.mymovies.BuildConfig;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,11 +15,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class ApiFactory {
 
     private static volatile OkHttpClient client;
-    private static volatile ApiService service;
+    private static volatile MovieService service;
 
 
-    public static ApiService getService(){
-        ApiService service = ApiFactory.service;
+
+
+    public static MovieService getService(){
+        MovieService service = ApiFactory.service;
             if(service == null){
                 synchronized (ApiFactory.class){
                     service = ApiFactory.service;
@@ -31,14 +34,14 @@ public final class ApiFactory {
     }
 
 
-    private static ApiService createService(){
+    private static MovieService createService(){
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.API_ENDPOINT)
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
-                .create(ApiService.class);
+                .create(MovieService.class);
     }
 
 
@@ -58,6 +61,7 @@ public final class ApiFactory {
     private static OkHttpClient buildClient(){
         return new OkHttpClient.Builder()
                 .addInterceptor(new ApiKeyInterceptor())
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
     }
 

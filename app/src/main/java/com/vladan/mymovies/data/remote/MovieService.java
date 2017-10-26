@@ -4,19 +4,24 @@ import com.vladan.mymovies.data.model.MovieResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Vladan on 10/20/2017.
  */
 
-public interface ApiService {
+public interface MovieService {
 
-    @GET("popular/")
+    @GET("movie/popular/")
     Observable<MovieResponse> popularMovies();
 
-    @GET("top_rated/")
+    @GET("movie/top_rated/")
     Observable<MovieResponse> topRatedMovies();
 
-    @GET("upcoming/")
+    @GET("movie/upcoming/")
     Observable<MovieResponse> upcomingMovies();
+
+    @GET("search/movie")
+    Observable<MovieResponse> searchMovie(@Query("query") String search);
 }

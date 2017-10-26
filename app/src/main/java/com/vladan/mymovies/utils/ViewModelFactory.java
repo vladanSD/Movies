@@ -6,17 +6,14 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import com.vladan.mymovies.data.AppDataManager;
 import com.vladan.mymovies.data.local.db.dao.MovieDao;
-import com.vladan.mymovies.data.remote.ApiService;
-import com.vladan.mymovies.ui.main.list.ListFragment;
-import com.vladan.mymovies.ui.main.search.SearchFragment;
+import com.vladan.mymovies.data.remote.MovieService;
 import com.vladan.mymovies.ui.main.search.SearchViewModel;
-import com.vladan.mymovies.utils.rx.SchedulerProvider;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
     AppDataManager appDataManager;
 
-    public ViewModelFactory(ApiService service, MovieDao dao) {
+    public ViewModelFactory(MovieService service, MovieDao dao) {
         this.appDataManager = new AppDataManager(dao, service);
     }
 
