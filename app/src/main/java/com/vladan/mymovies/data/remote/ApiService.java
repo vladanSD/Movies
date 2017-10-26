@@ -13,4 +13,10 @@ public interface ApiService {
 
     @GET("popular/")
     Observable<MovieResponse> popularMovies();
+
+    @GET("top_rated/")
+    Observable<MovieResponse> topRatedMovies();
+
+    @GET("upcoming/")
+    Observable<MovieResponse> upcomingMovies();
 }

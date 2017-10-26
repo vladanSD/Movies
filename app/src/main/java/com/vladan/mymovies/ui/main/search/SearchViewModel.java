@@ -24,15 +24,20 @@ public class SearchViewModel extends ViewModel {
 
     private final MutableLiveData<Boolean> loadingLiveData = new MutableLiveData<>();
 
-    private MutableLiveData<Response<List<Movie>>> moviesLiveData;
+    private MutableLiveData<Response<List<Movie>>> popularMoviesLiveData;
+    private MutableLiveData<Response<List<Movie>>> topRatedMoviesLiveData;
+    private MutableLiveData<Response<List<Movie>>> LatestMoviesLiveData;
+    private MutableLiveData<Response<List<Movie>>> upcomingMoviesLiveData;
+
 
     public SearchViewModel(AppDataManager appDataManager) {
         this.appDataManager = appDataManager;
     }
 
+
     LiveData<Response<List<Movie>>> getMoviesList() {
-        if (moviesLiveData == null) {
-            moviesLiveData = new MutableLiveData<>();
+        if (popularMoviesLiveData == null) {
+            popularMoviesLiveData = new MutableLiveData<>();
             appDataManager.popularMovies()
                     .map(movies -> {
                         Collections.sort(movies, (first, second) -> second.getId() - first.getId());
@@ -43,12 +48,56 @@ public class SearchViewModel extends ViewModel {
                     .doOnSubscribe(disposable -> loadingLiveData.setValue(true))
                     .doAfterTerminate(() -> loadingLiveData.setValue(false))
                     .subscribe(
-                            movies -> moviesLiveData.setValue(Response.success(movies)),
-                            throwable -> moviesLiveData.setValue(Response.error(throwable))
+                            movies -> popularMoviesLiveData.setValue(Response.success(movies)),
+                            throwable -> popularMoviesLiveData.setValue(Response.error(throwable))
                     );
         }
-        return moviesLiveData;
+        return popularMoviesLiveData;
     }
+
+    LiveData<Response<List<Movie>>> getTopRatedMovies() {
+        if (topRatedMoviesLiveData == null) {
+            topRatedMoviesLiveData = new MutableLiveData<>();
+            appDataManager.topRatedMovies()
+                    .map(movies -> {
+                        Collections.sort(movies, (first, second) -> second.getId() - first.getId());
+                        return movies;
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(disposable -> loadingLiveData.setValue(true))
+                    .doAfterTerminate(() -> loadingLiveData.setValue(false))
+                    .subscribe(
+                            movies -> topRatedMoviesLiveData.setValue(Response.success(movies)),
+                            throwable -> topRatedMoviesLiveData.setValue(Response.error(throwable))
+                    );
+        }
+        return topRatedMoviesLiveData;
+    }
+
+
+
+    LiveData<Response<List<Movie>>> getUpcomingMovies() {
+        if (upcomingMoviesLiveData == null) {
+            upcomingMoviesLiveData = new MutableLiveData<>();
+            appDataManager.upcomingMovies()
+                    .map(movies -> {
+                        Collections.sort(movies, (first, second) -> second.getId() - first.getId());
+                        return movies;
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe(disposable -> loadingLiveData.setValue(true))
+                    .doAfterTerminate(() -> loadingLiveData.setValue(false))
+                    .subscribe(
+                            movies -> upcomingMoviesLiveData.setValue(Response.success(movies)),
+                            throwable -> upcomingMoviesLiveData.setValue(Response.error(throwable))
+                    );
+        }
+        return upcomingMoviesLiveData;
+    }
+
+
 
 
 

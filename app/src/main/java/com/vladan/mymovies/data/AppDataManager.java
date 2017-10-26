@@ -1,12 +1,9 @@
 package com.vladan.mymovies.data;
 
-import android.content.Context;
 
-import com.vladan.mymovies.data.local.db.AppDatabase;
 import com.vladan.mymovies.data.local.db.dao.MovieDao;
 import com.vladan.mymovies.data.model.Movie;
 
-import com.vladan.mymovies.data.local.db.AppDatabaseHelper;
 import com.vladan.mymovies.data.model.MovieResponse;
 import com.vladan.mymovies.data.remote.ApiService;
 
@@ -32,6 +29,35 @@ public class AppDataManager {
 
     public Observable<List<Movie>> popularMovies() {
         return service.popularMovies()
+                .map(MovieResponse::getMovies)
+                .doOnNext(movies -> {
+                    List<Movie> currentMovies = movieDao.getAllMovies();
+                    movieDao.clearAll(currentMovies);
+                    movieDao.insertAll(movies);
+                })
+                .onErrorResumeNext(throwable -> {
+                    List<Movie> movies = movieDao.getAllMovies();
+                    return Observable.just(movies);
+                });
+    }
+
+    public Observable<List<Movie>> topRatedMovies() {
+        return service.topRatedMovies()
+                .map(MovieResponse::getMovies)
+                .doOnNext(movies -> {
+                    List<Movie> currentMovies = movieDao.getAllMovies();
+                    movieDao.clearAll(currentMovies);
+                    movieDao.insertAll(movies);
+                })
+                .onErrorResumeNext(throwable -> {
+                    List<Movie> movies = movieDao.getAllMovies();
+                    return Observable.just(movies);
+                });
+    }
+
+
+    public Observable<List<Movie>> upcomingMovies() {
+        return service.upcomingMovies()
                 .map(MovieResponse::getMovies)
                 .doOnNext(movies -> {
                     List<Movie> currentMovies = movieDao.getAllMovies();

@@ -15,6 +15,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.vladan.mymovies.R;
 import com.vladan.mymovies.data.AppDataManager;
@@ -43,13 +46,17 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManger;
     MoviesRecyclerAdapter mAdapter;
-    AppDataManager appDataManager;
+    EditText mEditText;
+    Spinner mSortSpinner;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.search_fragment, container, false);
+        mEditText = mRootView.findViewById(R.id.et_search);
+        mSortSpinner = mRootView.findViewById(R.id.spinner_sort);
+
         return mRootView;
     }
 
@@ -59,6 +66,18 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
         initRecycler();
 
         initViewModel();
+
+        mSortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                searchEngine();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
     }
@@ -84,11 +103,41 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
         factory = new ViewModelFactory(ApiFactory.getService(), dao);
         viewModel = ViewModelProviders.of(this, factory).get(SearchViewModel.class);
 
-        viewModel.getMoviesList().observe(this, listResponse -> {
-            List<Movie> list =  listResponse.getData();
-            if(!list.isEmpty()){
-                mAdapter.updateList(list);
-            }
-        });
+//        viewModel.getMoviesList().observe(this, listResponse -> {
+//            List<Movie> list =  listResponse.getData();
+//            if(!list.isEmpty()){
+//                mAdapter.updateList(list);
+//            }
+//        });
+
+    }
+
+    private void searchEngine(){
+        switch (mSortSpinner.getSelectedItem().toString()) {
+            case "Popular":
+                viewModel.getMoviesList().observe(this, listResponse -> {
+                    List<Movie> list = listResponse.getData();
+                    if (!list.isEmpty()) {
+                        mAdapter.updateList(list);
+                    }
+                });
+                break;
+            case "Top rated":
+                viewModel.getTopRatedMovies().observe(this, listResponse -> {
+                    List<Movie> list =  listResponse.getData();
+                    if(!list.isEmpty()){
+                        mAdapter.updateList(list);
+                    }
+                });
+                break;
+            case "Upcoming":
+                viewModel.getUpcomingMovies().observe(this, listResponse -> {
+                    List<Movie> list =  listResponse.getData();
+                    if(!list.isEmpty()){
+                        mAdapter.updateList(list);
+                    }
+                });
+                break;
+        }
     }
 }
