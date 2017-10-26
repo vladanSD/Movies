@@ -12,7 +12,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "API_ENDPOINT", '"http://api.themoviedb.org/3/movie/"'
-        buildConfigField "String", "API_KEY", '"befc7872520fd736c58948abb2f4a53c"'
+        buildConfigField "String", "API_KEY", '"1d963d7e34014ee2bafffa360b3a5398"'
         buildConfigField "String", "IMAGES_BASE_URL", '"https://image.tmdb.org/t/p/w500"'
 
 
