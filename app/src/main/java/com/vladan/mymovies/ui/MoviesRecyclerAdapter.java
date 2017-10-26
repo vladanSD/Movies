@@ -3,6 +3,8 @@ package com.vladan.mymovies.ui;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
+
+import com.vladan.mymovies.BuildConfig;
 import com.vladan.mymovies.data.model.Movie;
 
 import android.content.Intent;
@@ -84,7 +86,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
         }
 
         void bind(String img, String name){
-            Picasso.with(context).load(img).into(movieImg);
+            Picasso.with(context).load(BuildConfig.IMAGES_BASE_URL+img).into(movieImg);
             movieName.setText(name);
         }
 

@@ -65,6 +65,7 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
 
     private void initRecycler(){
         mRecyclerView = mRootView.findViewById(R.id.rv_search);
+        mRecyclerView.setNestedScrollingEnabled(false);
         mLayoutManger = new LinearLayoutManager(getContext());
         mAdapter = new MoviesRecyclerAdapter(new ArrayList<>(), getContext(), this);
         mRecyclerView.setLayoutManager(mLayoutManger);
@@ -84,8 +85,7 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
         viewModel = ViewModelProviders.of(this, factory).get(SearchViewModel.class);
 
         viewModel.getMoviesList().observe(this, listResponse -> {
-            List<Movie> list = new ArrayList<>();
-            list =  listResponse.getData();
+            List<Movie> list =  listResponse.getData();
             if(!list.isEmpty()){
                 mAdapter.updateList(list);
             }
