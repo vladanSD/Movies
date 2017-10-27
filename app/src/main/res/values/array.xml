@@ -2,6 +2,7 @@
 <resources>
 
         <string-array name="spinnerSortItems">
+            <item>Category...</item>
             <item>Popular</item>
             <item>Top rated</item>
             <item>Upcoming</item>

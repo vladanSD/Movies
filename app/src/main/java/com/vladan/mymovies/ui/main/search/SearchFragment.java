@@ -108,7 +108,8 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
 
         mImageButton.setOnClickListener(view -> {
             String search = mEditText.getText().toString();
-            if(!search.equals("")){
+            if(!search.trim().equals("")){
+                mSortSpinner.setSelection(0);
                 viewModel.getSearchedMovies(search).observe(this, listResponse -> {
                     List<Movie> list = listResponse.getData();
                     if (!list.isEmpty()) {
@@ -123,6 +124,7 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
     private void searchEngine(){
         switch (mSortSpinner.getSelectedItem().toString()) {
             case "Popular":
+                mEditText.setText("");
                 viewModel.getMoviesList().observe(this, listResponse -> {
                     List<Movie> list = listResponse.getData();
                     if (!list.isEmpty()) {
@@ -131,6 +133,7 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
                 });
                 break;
             case "Top rated":
+                mEditText.setText("");
                 viewModel.getTopRatedMovies().observe(this, listResponse -> {
                     List<Movie> list =  listResponse.getData();
                     if(!list.isEmpty()){
@@ -139,6 +142,7 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
                 });
                 break;
             case "Upcoming":
+                mEditText.setText("");
                 viewModel.getUpcomingMovies().observe(this, listResponse -> {
                     List<Movie> list =  listResponse.getData();
                     if(!list.isEmpty()){
