@@ -58,7 +58,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
         final Movie movie = listOfMovies.get(position);
 
         //binding data
-        holder.bind(movie.getPosterPath(), movie.getTitle());
+        holder.bind(movie.getPosterPath(), movie.getTitle(), movie.getOverview(), String.valueOf(movie.getVoteAverage()));
 
 
 
@@ -72,7 +72,8 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView movieImg;
         TextView movieName;
-        TextView movieGenre;
+        TextView movieOverview;
+        TextView movieRating;
         View mView;
 
 
@@ -81,13 +82,16 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
             mView = itemView;
             movieImg = itemView.findViewById(R.id.iv_recycler_item);
             movieName = itemView.findViewById(R.id.tv_recycler_item_name);
-            movieGenre = itemView.findViewById(R.id.tv_recycler_item_genre);
+            movieOverview = itemView.findViewById(R.id.tv_recycler_item_overview);
+            movieRating = itemView.findViewById(R.id.tv_recycler_item_rating);
             itemView.setOnClickListener(this);
         }
 
-        void bind(String img, String name){
+        void bind(String img, String name, String overview, String rating){
             Picasso.with(context).load(BuildConfig.IMAGES_BASE_URL+img).into(movieImg);
             movieName.setText(name);
+            movieOverview.setText(overview);
+            movieRating.setText(rating);
         }
 
 

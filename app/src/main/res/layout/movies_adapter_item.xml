@@ -14,7 +14,7 @@
     app:cardPreventCornerOverlap="false"
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="0dp"
-    app:cardBackgroundColor="@color/gray_light">
+    app:cardBackgroundColor="@color/gray_deep">
 <RelativeLayout
     android:id="@+id/rl_rela_round"
     android:layout_width="match_parent"
@@ -28,7 +28,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_movie_infos"
-        android:layout_width="180dp"
+        android:layout_width="wrap_content"
         android:layout_height="110dp"
         android:layout_toEndOf="@+id/iv_recycler_item">
 
@@ -47,13 +47,15 @@
         <TextView
             android:id="@+id/tv_recycler_item_overview"
             android:layout_width="wrap_content"
-            android:layout_height="23dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_below="@id/tv_recycler_item_name"
             android:layout_marginLeft="6dp"
             android:text="Overview"
+            android:ellipsize="end"
             android:minLines="2"
-            android:maxLines="2"/>
+            android:maxLines="2"
+            android:textColor="@color/white"/>
         <ImageView
             android:id="@+id/iv_star"
             android:layout_width="wrap_content"
@@ -70,7 +72,8 @@
             android:layout_toEndOf="@id/iv_star"
             android:layout_below="@id/tv_recycler_item_overview"
             android:layout_marginLeft="6dp"
-            android:text="stars" />
+            android:text="stars"
+            android:textColor="@color/white"/>
 
     </RelativeLayout>
     <ImageView

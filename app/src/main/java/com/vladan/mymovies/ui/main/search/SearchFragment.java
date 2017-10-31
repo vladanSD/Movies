@@ -70,6 +70,8 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
 
         initViewModel();
 
+
+        mSortSpinner.setSelection(1);
         mSortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
