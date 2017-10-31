@@ -29,8 +29,6 @@ public class ListFragment extends Fragment implements MoviesRecyclerAdapter.OnIt
     LayoutManager mLayoutManger;
     MoviesRecyclerAdapter mAdapter;
 
-    List<Movie> mList;
-
 
     @Nullable
     @Override
@@ -48,47 +46,12 @@ public class ListFragment extends Fragment implements MoviesRecyclerAdapter.OnIt
     private void initRecycler(){
         mRecyclerView = mRootView.findViewById(R.id.rv_picked_list);
         mLayoutManger = new LinearLayoutManager(getContext());
-        mAdapter = new MoviesRecyclerAdapter(randomTestData(), getContext(), this);
+        mAdapter = new MoviesRecyclerAdapter(new ArrayList<>(), getContext(), this);
         mRecyclerView.setLayoutManager(mLayoutManger);
         mRecyclerView.setAdapter(mAdapter);
 
     }
 
-    List<Movie> randomTestData(){
-        mList = new ArrayList<>();
-
-        Movie m = new Movie();
-        Movie m1 = new Movie();
-        Movie m2 = new Movie();
-        Movie m3 = new Movie();
-        Movie m4 = new Movie();
-
-        m.setPosterPath("http://t2.gstatic.com/images?q=tbn:ANd9GcRo9vfJCM6dzPkZHIHBVCtlJnAnew9Ai26kEdrli0-tfmatmciD");
-        m1.setPosterPath("https://pbs.twimg.com/media/DIYBKtiUwAEu5M5.jpg");
-        m2.setPosterPath("https://resizing.flixster.com/iBMbm0q6aAkWJoDNAqkIrszZlYU=/206x305/v1.bTsxMTE2OTE4MztqOzE3NTQ0OzEyMDA7ODAwOzEyMDA");
-        m3.setPosterPath("https://dw9to29mmj727.cloudfront.net/misc/newsletter-naruto3.png");
-        m4.setPosterPath("http://t0.gstatic.com/images?q=tbn:ANd9GcTrF2mGRl72HSQT3PjTQIhLjSRYnGNoD8w69yp4n4-XXquwYXvv");
-
-        m.setTitle("Inception");
-        m1.setTitle("Shutter island");
-        m2.setTitle("Intouchables");
-        m3.setTitle("Naruto");
-        m4.setTitle("Handmaiden");
-
-//        m.setGenres(1);
-//        m1.setGenres(1);
-//        m2.setGenres(1);
-//        m3.setGenres(1);
-//        m4.setGenres(1);
-
-        mList.add(m);
-        mList.add(m1);
-        mList.add(m2);
-        mList.add(m3);
-        mList.add(m4);
-
-        return  mList;
-    }
 
 
     @Override
