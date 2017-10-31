@@ -43,38 +43,34 @@
             android:textStyle="bold"
             android:textColor="@color/white"/>
 
+
         <TextView
-            android:id="@+id/tv_recycler_item_genre"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_below="@id/tv_recycler_item_name"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="6dp"
-            android:text="Ime zanra" />
-        <TextView
-            android:id="@+id/tv_recycler_item_tag"
-            android:layout_width="match_parent"
-            android:layout_height="23dp"
-            android:gravity="center_vertical"
-            android:layout_below="@id/tv_recycler_item_genre"
-            android:layout_marginLeft="6dp"
-            android:text="tagovi" />
-        <TextView
-            android:id="@+id/tv_recycler_item_stars"
+            android:id="@+id/tv_recycler_item_overview"
             android:layout_width="wrap_content"
             android:layout_height="23dp"
             android:gravity="center_vertical"
-            android:layout_below="@id/tv_recycler_item_tag"
+            android:layout_below="@id/tv_recycler_item_name"
+            android:layout_marginLeft="6dp"
+            android:text="Overview"
+            android:minLines="2"
+            android:maxLines="2"/>
+        <ImageView
+            android:id="@+id/iv_star"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginLeft="6dp"
+            android:layout_below="@id/tv_recycler_item_overview"
+            app:srcCompat="@android:drawable/btn_star_big_on"
+            />
+        <TextView
+            android:id="@+id/tv_recycler_item_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="32sp"
+            android:gravity="center_vertical"
+            android:layout_toEndOf="@id/iv_star"
+            android:layout_below="@id/tv_recycler_item_overview"
             android:layout_marginLeft="6dp"
             android:text="stars" />
-        <ImageView
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_below="@id/tv_recycler_item_tag"
-            android:layout_toEndOf="@+id/tv_recycler_item_stars"
-            app:srcCompat="@android:drawable/btn_star_big_on" />
 
     </RelativeLayout>
     <ImageView
