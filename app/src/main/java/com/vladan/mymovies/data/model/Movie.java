@@ -3,15 +3,19 @@ package com.vladan.mymovies.data.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
+import com.vladan.mymovies.data.local.db.Converters;
+import com.vladan.mymovies.data.local.db.Genres;
+
+import java.util.Date;
 
 
 @Entity
-public class Movie implements Parcelable {
+public class Movie {
 
     @PrimaryKey
     @SerializedName("id")
@@ -37,17 +41,17 @@ public class Movie implements Parcelable {
     @SerializedName("vote_average")
     private double voteAverage;
 
+
+
+
+    @ColumnInfo(name = "genre_ids")
+    @SerializedName("genre_ids")
+    @TypeConverters(Converters.class)
+    private Genres genreIds = null;
+
     public Movie() {
     }
 
-    public Movie(Parcel in) {
-        id = in.readInt();
-        posterPath = in.readString();
-        overview = in.readString();
-        title = in.readString();
-        releasedDate = in.readString();
-        voteAverage = in.readDouble();
-    }
 
     public int getId() {
         return id;
@@ -101,46 +105,11 @@ public class Movie implements Parcelable {
         this.voteAverage = voteAverage;
     }
 
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", posterPath='" + posterPath + '\'' +
-                ", overview='" + overview + '\'' +
-                ", title='" + title + '\'' +
-                ", releasedDate='" + releasedDate + '\'' +
-                ", voteAverage=" + voteAverage +
-                '}';
+    public Genres getGenreIds() {
+        return genreIds;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public void setGenreIds(Genres genreIds) {
+        this.genreIds = genreIds;
     }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(posterPath);
-        parcel.writeString(overview);
-        parcel.writeString(title);
-        parcel.writeString(releasedDate);
-        parcel.writeDouble(voteAverage);
-    }
-
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
-
-        @NonNull
-        @Override
-        public Movie createFromParcel(Parcel parcel) {
-            return new Movie(parcel);
-        }
-
-        @NonNull
-        @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
-        }
-
-    };
 }

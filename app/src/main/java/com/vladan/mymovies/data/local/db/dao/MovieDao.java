@@ -39,4 +39,7 @@ public interface MovieDao {
 
     @Query("DELETE FROM Movie")
     public void nukeTable();
+
+
+
 }
