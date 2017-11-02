@@ -11,7 +11,7 @@ import java.util.List;
 
 public class GenreResponse {
 
-    @SerializedName("results")
+    @SerializedName("genres")
     private List<Genre> genres;
 
 
