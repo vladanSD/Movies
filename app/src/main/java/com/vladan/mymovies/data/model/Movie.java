@@ -3,15 +3,12 @@ package com.vladan.mymovies.data.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverter;
 import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 import com.vladan.mymovies.data.local.db.Converters;
-import com.vladan.mymovies.data.local.db.Genres;
-
-import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -46,8 +43,7 @@ public class Movie {
 
     @ColumnInfo(name = "genre_ids")
     @SerializedName("genre_ids")
-    @TypeConverters(Converters.class)
-    private Genres genreIds = null;
+    private List<Integer> genreIds = null;
 
     public Movie() {
     }
@@ -105,11 +101,11 @@ public class Movie {
         this.voteAverage = voteAverage;
     }
 
-    public Genres getGenreIds() {
+    public List<Integer> getGenreIds() {
         return genreIds;
     }
 
-    public void setGenreIds(Genres genreIds) {
+    public void setGenreIds(List<Integer> genreIds) {
         this.genreIds = genreIds;
     }
 }

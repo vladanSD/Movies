@@ -4,6 +4,7 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import com.vladan.mymovies.data.local.db.dao.GenreDao;
@@ -15,6 +16,7 @@ import com.vladan.mymovies.data.model.Movie;
  * Created by Vladan on 10/14/2017.
  */
 @Database(entities = {Movie.class, Genre.class}, version = 4)
+@TypeConverters(Converters.class)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;

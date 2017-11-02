@@ -14,28 +14,22 @@ import java.util.List;
 public class Converters {
 
     @TypeConverter
-    public static Genres toList(String genreIds) {
+    public static List<Integer> toList(String genreIds) {
         List<Integer> list = new ArrayList<>();
         String[] array = genreIds.split(",");
         for(String s: array){
          list.add(Integer.parseInt(s));
         }
-        return new Genres(list);
+        return list;
     }
 
     @TypeConverter
-    public static String fromList(Genres genres) {
-        List<Integer> list = genres.getList();
+    public static String fromList(List<Integer> list) {
         String genreIds = "";
         for(int i : list){
-            genreIds += ","+i;
+            genreIds += i+",";
         }
         return genreIds;
-    }
-
-    public Class[] value(){
-        Class[] classes = new Class[]{this.getClass()};
-        return classes;
     }
 
 
