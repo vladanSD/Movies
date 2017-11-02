@@ -18,7 +18,9 @@ public class Converters {
         List<Integer> list = new ArrayList<>();
         String[] array = genreIds.split(",");
         for(String s: array){
-         list.add(Integer.parseInt(s));
+         if(!s.equals("")){
+             list.add(Integer.parseInt(s));
+         }
         }
         return list;
     }

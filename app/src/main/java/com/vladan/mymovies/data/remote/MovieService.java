@@ -1,5 +1,6 @@
 package com.vladan.mymovies.data.remote;
 
+import com.vladan.mymovies.data.model.GenreResponse;
 import com.vladan.mymovies.data.model.MovieResponse;
 
 import io.reactivex.Observable;
@@ -24,4 +25,7 @@ public interface MovieService {
 
     @GET("search/movie")
     Observable<MovieResponse> searchMovie(@Query("query") String search);
+
+    @GET("genre/movie/list/")
+    Observable<GenreResponse> genres();
 }
