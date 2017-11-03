@@ -49,7 +49,6 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
     MoviesRecyclerAdapter mAdapter;
     EditText mEditText;
     Spinner mSortSpinner;
-    ImageButton mImageButton;
 
 
     @Nullable
@@ -58,7 +57,6 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
         mRootView = inflater.inflate(R.layout.search_fragment, container, false);
         mEditText = mRootView.findViewById(R.id.et_search);
         mSortSpinner = mRootView.findViewById(R.id.spinner_sort);
-        mImageButton = mRootView.findViewById(R.id.ib_search);
 
         return mRootView;
     }
@@ -108,19 +106,27 @@ public class SearchFragment extends LifecycleFragment implements MoviesRecyclerA
         factory = new ViewModelFactory(ApiFactory.getService(), dao);
         viewModel = ViewModelProviders.of(this, factory).get(SearchViewModel.class);
 
-        mImageButton.setOnClickListener(view -> {
-            String search = mEditText.getText().toString();
-            if(!search.trim().equals("")){
-                mSortSpinner.setSelection(0);
-                viewModel.getSearchedMovies(search).observe(this, listResponse -> {
-                    List<Movie> list = listResponse.getData();
-                    if (!list.isEmpty()) {
-                        mAdapter.updateList(list);
-                    }
-                });
+        setFocusChangedEvent(mEditText);
+
+    }
+
+
+    //onFocusChange to start search after filling editText
+    private void setFocusChangedEvent(EditText editText){
+        editText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                String search = mEditText.getText().toString();
+                if(!search.trim().equals("")){
+                    mSortSpinner.setSelection(0);
+                    viewModel.getSearchedMovies(search).observe(this, listResponse -> {
+                        List<Movie> list = listResponse.getData();
+                        if (!list.isEmpty()) {
+                            mAdapter.updateList(list);
+                        }
+                    });
+                }
             }
         });
-
     }
 
     private void searchEngine(){
