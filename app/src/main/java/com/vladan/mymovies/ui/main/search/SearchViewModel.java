@@ -41,10 +41,6 @@ public class SearchViewModel extends ViewModel {
         if (popularMoviesLiveData == null) {
             popularMoviesLiveData = new MutableLiveData<>();
             appDataManager.popularMovies()
-                    .map(movies -> {
-                        Collections.sort(movies, (first, second) -> second.getId() - first.getId());
-                        return movies;
-                    })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe(disposable -> loadingLiveData.setValue(true))
@@ -61,10 +57,6 @@ public class SearchViewModel extends ViewModel {
         if (topRatedMoviesLiveData == null) {
             topRatedMoviesLiveData = new MutableLiveData<>();
             appDataManager.topRatedMovies()
-                    .map(movies -> {
-                        Collections.sort(movies, (first, second) -> second.getId() - first.getId());
-                        return movies;
-                    })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe(disposable -> loadingLiveData.setValue(true))
@@ -83,10 +75,6 @@ public class SearchViewModel extends ViewModel {
         if (upcomingMoviesLiveData == null) {
             upcomingMoviesLiveData = new MutableLiveData<>();
             appDataManager.upcomingMovies()
-                    .map(movies -> {
-                        Collections.sort(movies, (first, second) -> second.getId() - first.getId());
-                        return movies;
-                    })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe(disposable -> loadingLiveData.setValue(true))
@@ -103,10 +91,6 @@ public class SearchViewModel extends ViewModel {
     LiveData<Response<List<Movie>>> getSearchedMovies(String search) {
             searchedMovies = new MutableLiveData<>();
             appDataManager.searchMovies(search)
-                    .map(movies -> {
-                        Collections.sort(movies, (first, second) -> second.getId() - first.getId());
-                        return movies;
-                    })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnSubscribe(disposable -> loadingLiveData.setValue(true))
