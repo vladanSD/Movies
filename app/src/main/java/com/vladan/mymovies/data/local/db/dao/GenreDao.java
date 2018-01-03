@@ -28,4 +28,6 @@ public interface GenreDao {
     @Query("DELETE FROM Genre")
     public void nukeTable();
 
+    @Query("DELETE FROM Genre WHERE genreId=:id")
+    void delete(int id);
 }

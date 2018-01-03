@@ -1,4 +1,32 @@
+buildscript {
+    repositories {
+        mavenCentral() // or jcenter()
+    }
+
+    dependencies {
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
+    }
+}
+
+// make sure this line comes *after* you apply the Android plugin
+
 apply plugin: 'com.android.application'
+apply plugin: 'com.getkeepsafe.dexcount'
+
+dexcount {
+    format = "yaml"
+    includeClasses = false
+    includeClassCount = false
+    includeFieldCount = true
+    includeTotalMethodCount = true
+    orderByMethodCount = false
+    verbose = false
+    maxTreeDepth = Integer.MAX_VALUE
+    teamCityIntegration = false
+    teamCitySlug = null
+    runOnEachPackage = true
+    maxMethodCount = 64000
+}
 
 android {
     compileSdkVersion 26
@@ -24,7 +52,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
